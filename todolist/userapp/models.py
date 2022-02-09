@@ -6,5 +6,5 @@ class UserPortal(AbstractUser):
     email = models.EmailField(unique=True)
 
 
-    # def __str__(self) -> str:
-    #     return f'{self.first_name} {self.last_name}'
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name}'
