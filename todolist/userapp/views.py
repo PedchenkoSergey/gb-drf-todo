@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from .models import UserPortal
+from .serializers import UserPortalModelSerializer
 
-# Create your views here.
+
+class UserPortalModelViewSet(ModelViewSet):
+    queryset = UserPortal.objects.all()
+    serializer_class = UserPortalModelSerializer
+
