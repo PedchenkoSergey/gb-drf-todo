@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import UserPortal
 
-# Register your models here.
+
+@admin.register(UserPortal)
+class UserPortalAdmin(admin.ModelAdmin):
+    pass
