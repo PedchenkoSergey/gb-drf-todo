@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { HashRouter, Link, Router } from 'react-router-dom'
 import logo from '../static/img/android-chrome-512x512.png'
 import '../static/css/bootstrap.min.css'
 
@@ -18,7 +18,7 @@ const Menu = () => {
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <BrowserRouter>
+                                <HashRouter>
                                     <ul>
                                         <li class="nav-item nav-link" >
                                             <Link class="nav-link active" to='/'>Projects</Link>
@@ -30,7 +30,7 @@ const Menu = () => {
                                             <Link class="nav-link active" to='/todos'>Todos</Link>
                                         </li>
                                     </ul>
-                                </BrowserRouter>
+                                </HashRouter>
                                 {/* Navigation for the anchors: */}
                                 {/* <a class="nav-link active" aria-current="page" href="#">Home</a>
                                 <a class="nav-link" href="#">Users</a> */}

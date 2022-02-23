@@ -4,20 +4,22 @@ import '../static/css/bootstrap.min.css'
 
 const TodoItem = ({ todo }) => {
     return (
-        <tr>
-            <td>
-                {todo.project}
-            </td>
-            <td>
-                {todo.text}
-            </td>
-            <td>
-                {todo.user}
-            </td>
-            <td>
-                {todo.createAt}
-            </td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>
+                    {todo.project}
+                </td>
+                <td>
+                    {todo.text}
+                </td>
+                <td>
+                    {todo.user}
+                </td>
+                <td>
+                    {todo.createAt}
+                </td>
+            </tr>
+        </tbody>
     )
 }
 

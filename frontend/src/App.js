@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch, Link, Router } from 'react-router-dom'
 import axios from 'axios'
 
 import logo from './logo.svg';
@@ -74,7 +74,7 @@ class App extends React.Component {
               <TodoList todos={this.state.todos} />
             </div> */}
             {/* Adding HashRoutes: */}
-            <BrowserRouter>
+            <HashRouter>
               <Switch>
                 <Route exact path='/' component={() => <ProjectList projects={this.state.projects} />} />
                 <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
@@ -84,7 +84,7 @@ class App extends React.Component {
                 </Route>
                 <Route component={NotFound404} />
               </Switch>
-            </BrowserRouter>
+            </HashRouter>
 
 
 
