@@ -10,9 +10,19 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import ProjectList from './components/Project';
 import { TodoList } from './components/Todo';
+import { HashRouter, Route, Switch } from 'react-router-dom'
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
+
+
+const NotFound404 = ({ location }) => {
+  return (
+    <div>
+      <h1>Страница по адресу '{location.pathname}' не найдена</h1>
+    </div>
+  )
+}
 
 
 class App extends React.Component {
@@ -54,7 +64,7 @@ class App extends React.Component {
             <Menu />
           </header>
           <main role="main" class="flex-shrink-0">
-            <div class="container">
+            {/* <div class="container">
               <UserList users={this.state.users} />
             </div>
             <div class="container">
@@ -62,7 +72,18 @@ class App extends React.Component {
             </div>
             <div class="container">
               <TodoList todos={this.state.todos} />
-            </div>
+            </div> */}
+            {/* Adding HashRoutes: */}
+            <HashRouter>
+              <Switch>
+                <Route exact path='/' component={() => <UserList users={this.state.users} />} />
+                <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
+                <Route component={NotFound404} />
+              </Switch>
+            </HashRouter>
+
+
 
           </main>
         </div>
