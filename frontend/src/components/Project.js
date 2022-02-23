@@ -2,46 +2,40 @@ import React from 'react'
 import '../static/css/bootstrap.min.css'
 
 
-const UserItem = ({ user }) => {
+const ProjectItem = ({ project }) => {
     return (
         <tr>
             <td>
-                {user.username}
+                {project.name}
             </td>
             <td>
-                {user.firstName}
+                {project.url}
             </td>
             <td>
-                {user.lastName}
-            </td>
-            <td>
-                {user.email}
+                {project.users}
             </td>
         </tr>
     )
 }
 
-const UserList = ({ users }) => {
+const ProjectList = ({ projects }) => {
     return (
         <div class="container">
             <table class="table ">
                 <th>
-                    Username
+                    Project Name
                 </th>
                 <th>
-                    First name
+                    Project URL
                 </th>
                 <th>
-                    Last Name
+                    Users
                 </th>
-                <th>
-                    Email
-                </th>
-                {users.map((user) => <UserItem user={user} />)}
+                {projects.map((project) => <ProjectItem project={project} />)}
             </table>
         </div>
     )
 }
 
 
-export default UserList
+export default ProjectList
