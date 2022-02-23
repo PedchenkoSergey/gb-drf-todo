@@ -21,10 +21,10 @@ const Menu = () => {
                                 <HashRouter>
                                     <ul>
                                         <li class="nav-item nav-link" >
-                                            <Link class="nav-link active" to='/'>Users</Link>
+                                            <Link class="nav-link active" to='/'>Projects</Link>
                                         </li>
                                         <li class="nav-item nav-link" >
-                                            <Link class="nav-link active" to='/projects'>Projects</Link>
+                                            <Link class="nav-link active" to='/users'>Users</Link>
                                         </li>
                                         <li class="nav-item nav-link" >
                                             <Link class="nav-link active" to='/todos'>Todos</Link>

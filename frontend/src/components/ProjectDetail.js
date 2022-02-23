@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import '../static/css/bootstrap.min.css'
 
 
@@ -7,7 +7,7 @@ const ProjectItem = ({ project }) => {
     return (
         <tr>
             <td>
-                <Link to={`project/${project.name}`}>{project.name}</Link>
+                {project.name}
             </td>
             <td>
                 {project.url}
@@ -19,7 +19,10 @@ const ProjectItem = ({ project }) => {
     )
 }
 
-const ProjectList = ({ projects }) => {
+const ProjectDetailList = ({ projects }) => {
+    let { projectName } = useParams();
+    let filtered_items = projects.filter((project => project.name.includes(projectName)))
+
     return (
         <div class="container">
             <table class="table ">
@@ -32,11 +35,11 @@ const ProjectList = ({ projects }) => {
                 <th>
                     Users
                 </th>
-                {projects.map((project) => <ProjectItem project={project} />)}
+                {filtered_items.map((project) => <ProjectItem project={project} />)}
             </table>
         </div>
     )
 }
 
 
-export default ProjectList
+export default ProjectDetailList

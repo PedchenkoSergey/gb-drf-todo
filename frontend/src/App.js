@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 
 import logo from './logo.svg';
@@ -10,7 +11,7 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import ProjectList from './components/Project';
 import { TodoList } from './components/Todo';
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import ProjectDetailList from './components/ProjectDetail';
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
@@ -43,7 +44,6 @@ class App extends React.Component {
 
     axios.get(get_url('project/'))
       .then(response => {
-        console.log(response.data)
         this.setState({ projects: response.data.results })
       }).catch(error => console.log(error))
 
@@ -76,9 +76,12 @@ class App extends React.Component {
             {/* Adding HashRoutes: */}
             <HashRouter>
               <Switch>
-                <Route exact path='/' component={() => <UserList users={this.state.users} />} />
-                <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                 <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
+                <Route path="/project/:projectName">
+                  <ProjectDetailList projects={this.state.projects} />
+                </Route>
                 <Route component={NotFound404} />
               </Switch>
             </HashRouter>
