@@ -36,7 +36,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
+  load_data() {
     axios.get(get_url('users/'))
       .then(response => {
         this.setState({ users: response.data })
@@ -51,7 +51,10 @@ class App extends React.Component {
       .then(response => {
         this.setState({ todos: response.data.results })
       }).catch(error => console.log(error))
+  }
 
+  componentDidMount() {
+    this.load_data()
   }
 
 

@@ -7,13 +7,13 @@ const TodoItem = ({ todo }) => {
         <tbody>
             <tr>
                 <td>
-                    {todo.project}
+                    {todo.project.name}
                 </td>
                 <td>
                     {todo.text}
                 </td>
                 <td>
-                    {todo.user}
+                    {todo.user.username}
                 </td>
                 <td>
                     {todo.createAt}
