@@ -1,4 +1,5 @@
 import React from 'react'
+
 import logo from '../static/img/android-chrome-512x512.png'
 
 
@@ -19,8 +20,11 @@ class LoginForm extends React.Component {
 
     handleSubmit(event) {
         console.log(this.state.login + ' ' + this.state.password)
-        this.props.get_token(this.state.login, this.state.password)
+        // this.props.get_token(this.state.login, this.state.password)
         event.preventDefault()
+        if (this.props.get_token(this.state.login, this.state.password)) {
+            window.location.href = 'http://www.yandex.ru/';
+        }
     }
 
     render() {
