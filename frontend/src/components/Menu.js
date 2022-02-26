@@ -29,6 +29,9 @@ const Menu = () => {
                                         <li class="nav-item nav-link" >
                                             <Link class="nav-link active" to='/todos'>Todos</Link>
                                         </li>
+                                        <li class="nav-item nav-link" >
+                                            <Link class="nav-link active" to='/login'>Login</Link>
+                                        </li>
                                     </ul>
                                 </HashRouter>
                                 {/* Navigation for the anchors: */}

@@ -17,8 +17,6 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 class TodoModelSerializer(HyperlinkedModelSerializer):
 
-    
-    # project = ProjectModelSerializer()
     user = UserPortalModelSerializer()
     project = ProjectModelSerializer()
     

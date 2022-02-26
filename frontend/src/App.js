@@ -5,13 +5,17 @@ import axios from 'axios'
 import logo from './logo.svg';
 import bootstrap from 'bootstrap'
 import './static/css/bootstrap.min.css'
+import './static/css/styles.css'
 import './App.css';
+
 import UserList from './components/User';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import ProjectList from './components/Project';
 import { TodoList } from './components/Todo';
 import ProjectDetailList from './components/ProjectDetail';
+import LoginForm
+  from './components/Auth';
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
@@ -57,6 +61,13 @@ class App extends React.Component {
     this.load_data()
   }
 
+  get_token(username, password) {
+    axios.post('http://127.0.0.1:8000/api-token-auth/', { username: username, password: password })
+      .then(response => {
+        console.log(response.data)
+      }).catch(error => alert('Неверный логин или пароль'))
+  }
+
 
   render() {
     return (
@@ -85,6 +96,7 @@ class App extends React.Component {
                 <Route path="/project/:projectName">
                   <ProjectDetailList projects={this.state.projects} />
                 </Route>
+                <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)}/>} />
                 <Route component={NotFound404} />
               </Switch>
             </HashRouter>
