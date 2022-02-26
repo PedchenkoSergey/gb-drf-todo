@@ -2,48 +2,45 @@ import React from 'react'
 import '../static/css/bootstrap.min.css'
 
 
-const UserItem = ({ user }) => {
+const TodoItem = ({ todo }) => {
     return (
         <tbody>
             <tr>
                 <td>
-                    {user.username}
+                    {todo.project}
                 </td>
                 <td>
-                    {user.firstName}
+                    {todo.text}
                 </td>
                 <td>
-                    {user.lastName}
+                    {todo.user}
                 </td>
                 <td>
-                    {user.email}
+                    {todo.createAt}
                 </td>
             </tr>
         </tbody>
     )
 }
 
-const UserList = ({ users }) => {
+export const TodoList = ({ todos }) => {
     return (
         <div class="container">
             <table class="table ">
                 <th>
-                    Username
+                    Project Name
                 </th>
                 <th>
-                    First name
+                    ToDo Text
                 </th>
                 <th>
-                    Last Name
+                    Owner
                 </th>
                 <th>
-                    Email
+                    Created
                 </th>
-                {users.map((user) => <UserItem user={user} />)}
+                {todos.map((todo) => <TodoItem todo={todo} />)}
             </table>
         </div>
     )
 }
-
-
-export default UserList

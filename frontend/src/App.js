@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashRouter, Route, Switch, Link, Router } from 'react-router-dom'
 import axios from 'axios'
 
 import logo from './logo.svg';
@@ -8,16 +9,30 @@ import './App.css';
 import UserList from './components/User';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
+import ProjectList from './components/Project';
+import { TodoList } from './components/Todo';
+import ProjectDetailList from './components/ProjectDetail';
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
+
+
+const NotFound404 = ({ location }) => {
+  return (
+    <div>
+      <h1>Страница по адресу '{location.pathname}' не найдена</h1>
+    </div>
+  )
+}
 
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      users: []
+      users: [],
+      projects: [],
+      todos: [],
     }
   }
 
@@ -25,6 +40,16 @@ class App extends React.Component {
     axios.get(get_url('users/'))
       .then(response => {
         this.setState({ users: response.data })
+      }).catch(error => console.log(error))
+
+    axios.get(get_url('project/'))
+      .then(response => {
+        this.setState({ projects: response.data.results })
+      }).catch(error => console.log(error))
+
+    axios.get(get_url('todo/'))
+      .then(response => {
+        this.setState({ todos: response.data.results })
       }).catch(error => console.log(error))
 
   }
@@ -39,10 +64,30 @@ class App extends React.Component {
             <Menu />
           </header>
           <main role="main" class="flex-shrink-0">
-            <div class="container">
-
+            {/* <div class="container">
               <UserList users={this.state.users} />
             </div>
+            <div class="container">
+              <ProjectList projects={this.state.projects} />
+            </div>
+            <div class="container">
+              <TodoList todos={this.state.todos} />
+            </div> */}
+            {/* Adding HashRoutes: */}
+            <HashRouter>
+              <Switch>
+                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
+                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
+                <Route path="/project/:projectName">
+                  <ProjectDetailList projects={this.state.projects} />
+                </Route>
+                <Route component={NotFound404} />
+              </Switch>
+            </HashRouter>
+
+
+
           </main>
         </div>
         <Footer />

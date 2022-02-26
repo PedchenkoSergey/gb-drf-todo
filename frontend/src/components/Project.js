@@ -1,49 +1,44 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../static/css/bootstrap.min.css'
 
 
-const UserItem = ({ user }) => {
+const ProjectItem = ({ project }) => {
     return (
         <tbody>
             <tr>
                 <td>
-                    {user.username}
+                    <Link to={`project/${project.name}`}>{project.name}</Link>
                 </td>
                 <td>
-                    {user.firstName}
+                    {project.url}
                 </td>
                 <td>
-                    {user.lastName}
-                </td>
-                <td>
-                    {user.email}
+                    {project.users}
                 </td>
             </tr>
         </tbody>
     )
 }
 
-const UserList = ({ users }) => {
+const ProjectList = ({ projects }) => {
     return (
         <div class="container">
             <table class="table ">
                 <th>
-                    Username
+                    Project Name
                 </th>
                 <th>
-                    First name
+                    Project URL
                 </th>
                 <th>
-                    Last Name
+                    Users
                 </th>
-                <th>
-                    Email
-                </th>
-                {users.map((user) => <UserItem user={user} />)}
+                {projects.map((project) => <ProjectItem project={project} />)}
             </table>
         </div>
     )
 }
 
 
-export default UserList
+export default ProjectList
