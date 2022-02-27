@@ -149,7 +149,10 @@ class App extends React.Component {
                   <ProjectDetailList projects={this.state.projects} />
                 </Route>
                 <Route exact path='/login' component={
-                  () => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                  () => <LoginForm 
+                  get_token={(username, password) => this.get_token(username, password)} 
+                  is_authenticated={() => this.is_authenticated()}
+                  />} />
                 <Route component={NotFound404} />
               </Switch>
             </HashRouter>
