@@ -4,7 +4,7 @@ from userapp.serializers import UserPortalModelSerializer
 
 class ProjectModelSerializer(HyperlinkedModelSerializer):
 
-    # users = UserPortalModelSerializer(many=True)
+    users = UserPortalModelSerializer(many=True)
 
     class Meta:
         model = Project
@@ -17,12 +17,12 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 class TodoModelSerializer(HyperlinkedModelSerializer):
 
-    
-    # project = ProjectModelSerializer()
-    # user = UserPortalModelSerializer()
+    user = UserPortalModelSerializer()
+    project = ProjectModelSerializer()
     
     class Meta:
         model = Todo
+        
         fields = [
             'project',
             'text',

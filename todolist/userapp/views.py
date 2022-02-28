@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.decorators import action
 from .models import UserPortal
@@ -9,6 +9,7 @@ from .serializers import UserPortalModelSerializer
 
 
 class UserPortalModelViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     queryset = UserPortal.objects.all()
 
     def list(self, request):
