@@ -1,8 +1,8 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import Project, Todo
 from userapp.serializers import UserPortalModelSerializer
 
-class ProjectModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializer(ModelSerializer):
 
     users = UserPortalModelSerializer(many=True)
 
@@ -15,7 +15,17 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
             ]
 
 
-class TodoModelSerializer(HyperlinkedModelSerializer):
+class ProjectModelSerializerBase(ModelSerializer):
+    class Meta:
+        model = Project
+        fields = [
+            'name',
+            'url',
+            'users',
+            ]
+
+
+class TodoModelSerializer(ModelSerializer):
 
     user = UserPortalModelSerializer()
     project = ProjectModelSerializer()
@@ -32,3 +42,17 @@ class TodoModelSerializer(HyperlinkedModelSerializer):
             'is_active',
             ]
 
+class TodoModelSerializerBase(ModelSerializer):
+    
+    class Meta:
+        model = Todo
+        
+        fields = [
+            'project',
+            'text',
+            'create_at',
+            'update_at',
+            'user',
+            'is_active',
+            ]
+            

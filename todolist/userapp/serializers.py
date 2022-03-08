@@ -1,8 +1,8 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import UserPortal
 
 
-class UserPortalModelSerializer(HyperlinkedModelSerializer):
+class UserPortalModelSerializer(ModelSerializer):
     class Meta:
         model = UserPortal
         fields = [
