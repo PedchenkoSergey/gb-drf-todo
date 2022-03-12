@@ -54,4 +54,23 @@ class Query(graphene.ObjectType):
         return todos
 
 
-schema = graphene.Schema(query=Query)
+class ProjectMutation(graphene.Mutation):
+    class Arguments:
+        name = graphene.String(required=True)
+        id = graphene.ID()
+
+    project = graphene.Field(ProjectType)
+
+    @classmethod
+    def mutate(cls, root, info, name, id):
+        project = Project.objects.get(pk=id)
+        project.name = name
+        project.save()
+        return ProjectMutation(project=project)
+
+
+class Mutation(graphene.ObjectType):
+    update_project = ProjectMutation.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

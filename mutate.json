@@ -1,0 +1,11 @@
+mutation updateProject {
+    updateProject(id: 1, name: "ProjectMutated") {
+      project {
+        name
+        url
+        users {
+          username
+        }
+      }
+    }
+  }

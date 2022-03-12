@@ -1,0 +1,39 @@
+{
+    projectById (id: 1) {
+      name
+      url
+      users {
+        username
+        }
+    }
+    todoByProjectName(name: "ProjectOne") {
+      text
+      user {
+        username
+        }
+      isActive
+    }
+    allProjects {
+      name
+      url
+      users {
+        username
+        }
+    }
+    allTodos {
+      project {
+        name
+        }
+      text
+      user {
+        username
+        }
+      isActive
+    }
+    allUsers {
+      username
+      projectSet {
+        name
+        }
+    }
+}
