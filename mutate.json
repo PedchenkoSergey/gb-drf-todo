@@ -1,11 +1,20 @@
 mutation updateProject {
-    updateProject(id: 1, name: "ProjectMutated") {
-      project {
-        name
-        url
-        users {
-          username
-        }
+  updateProject(id: 1, name: "ProjectMutated") {
+    project {
+      name
+      url
+      users {
+        username
       }
     }
   }
+  updateTodo(id: 1, text: "MutatedText") {
+    todo {
+      text
+      user {
+        username
+      }
+      isActive
+    }
+  }
+}

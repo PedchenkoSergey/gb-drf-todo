@@ -69,8 +69,25 @@ class ProjectMutation(graphene.Mutation):
         return ProjectMutation(project=project)
 
 
+class TodoMutation(graphene.Mutation):
+    class Arguments:
+        text = graphene.String(required=True)
+        id = graphene.ID()
+
+    todo = graphene.Field(TodoType)
+
+    @classmethod
+    def mutate(cls, root, info, text, id):
+        todo = Todo.objects.get(pk=id)
+        todo.text = text
+        todo.save()
+        return TodoMutation(todo=todo)
+
+
+
 class Mutation(graphene.ObjectType):
     update_project = ProjectMutation.Field()
+    update_todo = TodoMutation.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
