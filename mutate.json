@@ -1,14 +1,32 @@
 mutation updateProject {
-  updateProject(id: 1, name: "ProjectMutated") {
-    project {
-      name
-      url
-      users {
-        username
-      }
-    }
-  }
-  updateTodo(id: 1, text: "MutatedText") {
+  # updateProject(id: 1, name: "ProjectMutated", addUserId: 1) {
+  #   project {
+  #     name
+  #     url
+  #     users {
+  #       username
+  #     }
+  #   }
+  # }
+  # updateProject(id: 1, removeUserId: 1) {
+  #   project {
+  #     name
+  #     url
+  #     users {
+  #       username
+  #     }
+  #   }
+  # }
+  # updateTodo(id: 1, text: "MutatedText") {
+  #   todo {
+  #     text
+  #     user {
+  #       username
+  #     }
+  #     isActive
+  #   }
+  # }
+  updateTodo(id: 1, setActive: true) {
     todo {
       text
       user {
@@ -17,4 +35,13 @@ mutation updateProject {
       isActive
     }
   }
+  # updateTodo(id: 1, setActive: false) {
+  #   todo {
+  #     text
+  #     user {
+  #       username
+  #     }
+  #     isActive
+  #   }
+  # }
 }

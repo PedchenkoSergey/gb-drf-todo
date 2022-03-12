@@ -82,16 +82,21 @@ class ProjectMutation(graphene.Mutation):
 
 class TodoMutation(graphene.Mutation):
     class Arguments:
-        text = graphene.String(required=True)
+        text = graphene.String()
+        set_active = graphene.Boolean()
         id = graphene.ID()
 
     todo = graphene.Field(TodoType)
 
     @classmethod
-    def mutate(cls, root, info, text, id):
+    def mutate(cls, root, info, id, text=None, set_active=None):
         todo = Todo.objects.get(pk=id)
-        todo.text = text
-        todo.save()
+        if text:
+            todo.text = text
+            todo.save()
+        if set_active is not None:
+            todo.is_active = set_active
+            todo.save()
         return TodoMutation(todo=todo)
 
 
