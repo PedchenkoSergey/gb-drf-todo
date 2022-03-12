@@ -1,10 +1,10 @@
 from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import Project, Todo
-from userapp.serializers import UserPortalModelSerializer
+from userapp.serializers import UserPortalBaseModelSerializer
 
 class ProjectModelSerializer(ModelSerializer):
 
-    users = UserPortalModelSerializer(many=True)
+    users = UserPortalBaseModelSerializer(many=True)
 
     class Meta:
         model = Project
@@ -27,7 +27,7 @@ class ProjectModelSerializerBase(ModelSerializer):
 
 class TodoModelSerializer(ModelSerializer):
 
-    user = UserPortalModelSerializer()
+    user = UserPortalBaseModelSerializer()
     project = ProjectModelSerializer()
     
     class Meta:
