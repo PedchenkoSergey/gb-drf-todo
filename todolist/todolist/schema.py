@@ -30,7 +30,8 @@ class Query(graphene.ObjectType):
     all_users = graphene.List(UserPortalType)
 
     project_by_id = graphene.Field(ProjectType, id=graphene.Int(required=True))
-    todo_by_project_name = graphene.List(TodoType, name=graphene.String(required=True))
+    todo_by_project_name = graphene.List(
+        TodoType, name=graphene.String(required=True))
 
     def resolve_all_projects(root, info):
         return Project.objects.all()
@@ -56,16 +57,26 @@ class Query(graphene.ObjectType):
 
 class ProjectMutation(graphene.Mutation):
     class Arguments:
-        name = graphene.String(required=True)
+        name = graphene.String()
+        add_user_id = graphene.Int()
+        remove_user_id = graphene.Int()
         id = graphene.ID()
 
     project = graphene.Field(ProjectType)
 
     @classmethod
-    def mutate(cls, root, info, name, id):
+    def mutate(cls, root, info, id, name=None, add_user_id=None, remove_user_id=None):
         project = Project.objects.get(pk=id)
-        project.name = name
-        project.save()
+        if name:
+            project.name = name
+            project.save()
+        if add_user_id:
+            user = UserPortal.objects.get(pk=add_user_id)
+            project.users.add(user)
+            project.save()
+        if remove_user_id:
+            user = UserPortal.objects.get(pk=remove_user_id)
+            project.users.remove(user)
         return ProjectMutation(project=project)
 
 
@@ -82,7 +93,6 @@ class TodoMutation(graphene.Mutation):
         todo.text = text
         todo.save()
         return TodoMutation(todo=todo)
-
 
 
 class Mutation(graphene.ObjectType):
