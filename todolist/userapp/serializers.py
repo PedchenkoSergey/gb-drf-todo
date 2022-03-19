@@ -2,7 +2,7 @@ from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializ
 from .models import UserPortal
 
 
-class UserPortalModelSerializer(ModelSerializer):
+class UserPortalBaseModelSerializer(ModelSerializer):
     class Meta:
         model = UserPortal
         fields = [
@@ -10,4 +10,16 @@ class UserPortalModelSerializer(ModelSerializer):
             'first_name',
             'last_name',
             'email'
+        ]
+
+class UserPortalAdvancedModelSerializer(ModelSerializer):
+    class Meta:
+        model = UserPortal
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_superuser',
+            'is_staff'
         ]
