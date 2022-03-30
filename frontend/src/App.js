@@ -150,10 +150,22 @@ class App extends React.Component {
   }
 
   createProject(name, url, users) {
+    const headers = this.get_headers()
+    const data = { name: name, url: url, users: users }
+    console.log(data)
+
+    axios.post(get_url('project/'), data, { headers }).then(
+      response => {
+        this.load_data()
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ projects: [] })
+    })
 
   }
 
-  createTodo (project, text, users) {
+  createTodo(project, text, users) {
 
   }
 
@@ -188,14 +200,14 @@ class App extends React.Component {
                 <Route path="/project/:projectName">
                   <ProjectDetailList projects={this.state.projects} />
                 </Route>
-                
+
                 <Route exact path='/login' component={
                   () => <LoginForm
                     get_token={(username, password) => this.get_token(username, password)}
                     is_authenticated={() => this.is_authenticated()}
                   />} />
 
-                <Route exact path='/project/create' component={
+                <Route exact path='/projects/create' component={
                   () => <ProjectForm
                     users={this.state.users}
                     createProject={(name, url, users) => this.createProject(name, url, users)} />} />
@@ -206,7 +218,7 @@ class App extends React.Component {
                     users={this.state.users}
                     createTodo={(project, text, users) => this.createTodo(project, text, users)} />} />
 
-                  
+
 
                 <Route component={NotFound404} />
               </Switch>
