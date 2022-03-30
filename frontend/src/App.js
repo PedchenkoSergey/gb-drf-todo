@@ -117,6 +117,21 @@ class App extends React.Component {
     console.log(this.state.token)
   }
 
+  deleteProject(id) {
+    const headers = this.get_headers()
+    axios.delete(get_url(`project/${id}`), { headers }).then(
+
+      response => {
+        this.load_data()
+
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ projects: [] })
+    })
+
+  }
+
 
   render() {
     return (
@@ -142,16 +157,16 @@ class App extends React.Component {
             {/* Adding HashRoutes: */}
             <HashRouter>
               <Switch>
-                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/' component={() => <ProjectList projects={this.state.projects } deleteProject={(id)=>this.deleteProject(id)} />} />
                 <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
                 <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
                 <Route path="/project/:projectName">
-                  <ProjectDetailList projects={this.state.projects} />
+                  <ProjectDetailList projects={this.state.projects}/>
                 </Route>
                 <Route exact path='/login' component={
-                  () => <LoginForm 
-                  get_token={(username, password) => this.get_token(username, password)} 
-                  is_authenticated={() => this.is_authenticated()}
+                  () => <LoginForm
+                    get_token={(username, password) => this.get_token(username, password)}
+                    is_authenticated={() => this.is_authenticated()}
                   />} />
                 <Route component={NotFound404} />
               </Switch>
