@@ -4,32 +4,35 @@ import React from 'react'
 class TodoForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { name: '', url: '', user: 0 }
+        this.state = { 
+            project: this.props.projects[0].id, 
+            text: '', 
+            user: this.props.users[0].id }
     }
 
     handleUserChange(event) {
         if (!event.target.selectedOptions) {
             this.setState({
-                user: []
+                user: this.props.users[0]
             })
             return;
         }
 
         this.setState({
-            user: event.target.selectedOptions.value
+            user: event.target.selectedOptions.item(0).value
         })
     }
 
     handleProjectChange(event) {
         if (!event.target.selectedOptions) {
             this.setState({
-                name: ''
+                project: this.props.projects[0]
             })
             return;
         }
 
         this.setState({
-            name: event.target.selectedOptions.value
+            project: event.target.selectedOptions.item(0).value
         })
     }
 
@@ -44,10 +47,7 @@ class TodoForm extends React.Component {
     }
 
     handleSubmit(event) {
-        // this.props.createProject(this.state.name, this.state.url, this.state.users_create)
-        console.log(this.state.name)
-        console.log(this.state.url)
-        console.log(this.state.user)
+        this.props.createTodo(this.state.project, this.state.text, this.state.user)
         event.preventDefault()
     }
 
@@ -60,14 +60,17 @@ class TodoForm extends React.Component {
                         <select style={{ width: 180 + 'px' }} name="project" onChange={(event) => this.handleProjectChange(event)}>
                             {this.props.projects.map((project) => <option value={project.id}> {project.name} </option>)}
                         </select>
+
                         <div style={{ paddingBottom: 20 + 'px' }}>
                             <label for="login">ToDo text</label>
                             <input type="text" className="form-control" name="text" value={this.state.text}
-                                onChange={(event) => this.handleChange(event)} />
+                                onChange={(event) => this.handleChange(event)} /> 
                         </div>
+
                         <select style={{ width: 180 + 'px' }} name="user" onChange={(event) => this.handleUserChange(event)}>
                             {this.props.users.map((user) => <option value={user.id}> {user.firstName} {user.lastName}</option>)}
                         </select>
+
                         <div>
                             <input type="submit" className="btn btn-primary" value="Save" />
                         </div>

@@ -165,9 +165,9 @@ class App extends React.Component {
 
   }
 
-  createTodo(project, text, users) {
+  createTodo(project, text, user) {
     const headers = this.get_headers()
-    const data = { project: project, text: text, users: users }
+    const data = { project: project, text: text, user: user }
     console.log(data)
 
     axios.post(get_url('todo/'), data, { headers }).then(
@@ -227,7 +227,7 @@ class App extends React.Component {
                   () => <TodoForm
                     projects={this.state.projects}
                     users={this.state.users}
-                    createTodo={(project, text, users) => this.createTodo(project, text, users)} />} />
+                    createTodo={(project, text, user) => this.createTodo(project, text, user)} />} />
 
 
 
