@@ -17,6 +17,9 @@ import ProjectList from './components/Project';
 import { TodoList } from './components/Todo';
 import ProjectDetailList from './components/ProjectDetail';
 import LoginForm from './components/Auth';
+import ProjectForm from './components/ProjectForm';
+import TodoForm from './components/TodoForm';
+
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
@@ -146,6 +149,13 @@ class App extends React.Component {
 
   }
 
+  createProject(name, url, users) {
+
+  }
+
+  createTodo (project, text, users) {
+
+  }
 
 
   render() {
@@ -172,17 +182,32 @@ class App extends React.Component {
             {/* Adding HashRoutes: */}
             <HashRouter>
               <Switch>
-                <Route exact path='/' component={() => <ProjectList projects={this.state.projects } deleteProject={(id)=>this.deleteProject(id)} />} />
+                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} deleteProject={(id) => this.deleteProject(id)} />} />
                 <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
-                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} deleteTodo={(id)=>this.deleteTodo(id)} />} />
+                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)} />} />
                 <Route path="/project/:projectName">
-                  <ProjectDetailList projects={this.state.projects}/>
+                  <ProjectDetailList projects={this.state.projects} />
                 </Route>
+                
                 <Route exact path='/login' component={
                   () => <LoginForm
                     get_token={(username, password) => this.get_token(username, password)}
                     is_authenticated={() => this.is_authenticated()}
                   />} />
+
+                <Route exact path='/project/create' component={
+                  () => <ProjectForm
+                    users={this.state.users}
+                    createProject={(name, url, users) => this.createProject(name, url, users)} />} />
+
+                <Route exact path='/todos/create' component={
+                  () => <TodoForm
+                    projects={this.state.projects}
+                    users={this.state.users}
+                    createTodo={(project, text, users) => this.createTodo(project, text, users)} />} />
+
+                  
+
                 <Route component={NotFound404} />
               </Switch>
             </HashRouter>

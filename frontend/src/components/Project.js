@@ -17,7 +17,7 @@ const ProjectItem = ({ project, deleteProject }) => {
                     {project.users.map((user) => user.username)}
                 </td>
                 <td>
-                    <button onClick={() => deleteProject(project.id)} type="button">Delete</button>
+                    <button class="col-sm btn btn-danger" onClick={() => deleteProject(project.id)} type="button">Delete</button>
                 </td>
             </tr>
         </tbody>
@@ -39,6 +39,7 @@ const ProjectList = ({ projects, deleteProject }) => {
                 </th>
                 {projects.map((project) => <ProjectItem project={project} deleteProject={deleteProject}/>)}
             </table>
+            <Link class="col-sm btn btn-success" to='/project/create'>Create</Link>
         </div>
     )
 }
