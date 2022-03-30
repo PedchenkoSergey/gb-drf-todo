@@ -24,7 +24,6 @@ class ProjectForm extends React.Component {
             users.push(event.target.selectedOptions.item(i).value)
         }
 
-        console.log(users)
         this.setState({
             users_create: users
         })

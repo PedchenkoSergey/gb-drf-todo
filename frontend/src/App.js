@@ -166,7 +166,18 @@ class App extends React.Component {
   }
 
   createTodo(project, text, users) {
+    const headers = this.get_headers()
+    const data = { project: project, text: text, users: users }
+    console.log(data)
 
+    axios.post(get_url('todo/'), data, { headers }).then(
+      response => {
+        this.load_data()
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ todos: [] })
+    })
   }
 
 
