@@ -6,6 +6,7 @@ class UserPortalBaseModelSerializer(ModelSerializer):
     class Meta:
         model = UserPortal
         fields = [
+            'id',
             'username',
             'first_name',
             'last_name',
@@ -16,6 +17,7 @@ class UserPortalAdvancedModelSerializer(ModelSerializer):
     class Meta:
         model = UserPortal
         fields = [
+            'id',
             'username',
             'first_name',
             'last_name',

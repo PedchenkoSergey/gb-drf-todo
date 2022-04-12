@@ -17,6 +17,9 @@ import ProjectList from './components/Project';
 import { TodoList } from './components/Todo';
 import ProjectDetailList from './components/ProjectDetail';
 import LoginForm from './components/Auth';
+import ProjectForm from './components/ProjectForm';
+import TodoForm from './components/TodoForm';
+
 
 const DOMAIN = 'http://127.0.0.1:8000/api/'
 const get_url = (url) => `${DOMAIN}${url}`
@@ -117,6 +120,66 @@ class App extends React.Component {
     console.log(this.state.token)
   }
 
+  deleteProject(id) {
+    const headers = this.get_headers()
+    axios.delete(get_url(`project/${id}`), { headers }).then(
+
+      response => {
+        this.load_data()
+
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ projects: [] })
+    })
+  }
+
+  deleteTodo(id) {
+    const headers = this.get_headers()
+    axios.delete(get_url(`todo/${id}`), { headers }).then(
+
+      response => {
+        this.load_data()
+
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ todos: [] })
+    })
+
+  }
+
+  createProject(name, url, users) {
+    const headers = this.get_headers()
+    const data = { name: name, url: url, users: users }
+    console.log(data)
+
+    axios.post(get_url('project/'), data, { headers }).then(
+      response => {
+        this.load_data()
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ projects: [] })
+    })
+
+  }
+
+  createTodo(project, text, user) {
+    const headers = this.get_headers()
+    const data = { project: project, text: text, user: user }
+    console.log(data)
+
+    axios.post(get_url('todo/'), data, { headers }).then(
+      response => {
+        this.load_data()
+      }
+    ).catch(error => {
+      console.log(error)
+      this.setState({ todos: [] })
+    })
+  }
+
 
   render() {
     return (
@@ -142,17 +205,32 @@ class App extends React.Component {
             {/* Adding HashRoutes: */}
             <HashRouter>
               <Switch>
-                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} />} />
+                <Route exact path='/' component={() => <ProjectList projects={this.state.projects} deleteProject={(id) => this.deleteProject(id)} />} />
                 <Route exact path='/users' component={() => <UserList users={this.state.users} />} />
-                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
+                <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)} />} />
                 <Route path="/project/:projectName">
                   <ProjectDetailList projects={this.state.projects} />
                 </Route>
+
                 <Route exact path='/login' component={
-                  () => <LoginForm 
-                  get_token={(username, password) => this.get_token(username, password)} 
-                  is_authenticated={() => this.is_authenticated()}
+                  () => <LoginForm
+                    get_token={(username, password) => this.get_token(username, password)}
+                    is_authenticated={() => this.is_authenticated()}
                   />} />
+
+                <Route exact path='/projects/create' component={
+                  () => <ProjectForm
+                    users={this.state.users}
+                    createProject={(name, url, users) => this.createProject(name, url, users)} />} />
+
+                <Route exact path='/todos/create' component={
+                  () => <TodoForm
+                    projects={this.state.projects}
+                    users={this.state.users}
+                    createTodo={(project, text, user) => this.createTodo(project, text, user)} />} />
+
+
+
                 <Route component={NotFound404} />
               </Switch>
             </HashRouter>

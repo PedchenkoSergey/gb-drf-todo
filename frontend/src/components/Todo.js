@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import '../static/css/bootstrap.min.css'
 
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, deleteTodo }) => {
     return (
         <tbody>
             <tr>
@@ -18,12 +20,15 @@ const TodoItem = ({ todo }) => {
                 <td>
                     {todo.createAt}
                 </td>
+                <td>
+                    <button class="col-sm btn btn-danger" onClick={() => deleteTodo(todo.id)} type="button">Delete</button>
+                </td>
             </tr>
         </tbody>
     )
 }
 
-export const TodoList = ({ todos }) => {
+export const TodoList = ({ todos, deleteTodo }) => {
     return (
         <div class="container">
             <table class="table ">
@@ -39,8 +44,9 @@ export const TodoList = ({ todos }) => {
                 <th>
                     Created
                 </th>
-                {todos.map((todo) => <TodoItem todo={todo} />)}
+                {todos.filter((todo) => todo.isActive).map((todo) => <TodoItem todo={todo} deleteTodo={deleteTodo} />)}
             </table>
+            <Link class="col-sm btn btn-success" to='/todos/create'>Create</Link>
         </div>
     )
 }
