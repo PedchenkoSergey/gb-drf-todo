@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.1
+    privileged: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: tdlist
+      POSTGRES_PASSWORD: tdlist_password
+      POSTGRES_DB: tdlist
+  adminer:
+    image: adminer:4.7.8-standalone
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - dbs
+  backend:
+    build:
+      context: ./todolist
+    ports:
+      - 8080:8080
+    command: bash -c "
+      ./wait-for-postgres.sh db
+      && python manage.py migrate
+      && python manage.py loaddata fixtures.json
+      && python manage.py runserver 0.0.0.0:8080
+      "
+    depends_on:
+      - db
