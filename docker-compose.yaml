@@ -10,13 +10,13 @@ services:
       POSTGRES_USER: tdlist
       POSTGRES_PASSWORD: tdlist_password
       POSTGRES_DB: tdlist
-  adminer:
-    image: adminer:4.7.8-standalone
-    restart: always
-    ports:
-      - 8081:8080
-    depends_on:
-      - dbs
+#  adminer:  # TO work with db directly
+#    image: adminer:4.7.8-standalone
+#    restart: always
+#    ports:
+#      - 8081:8080
+#    depends_on:
+#      - dbs
   backend:
     build:
       context: ./todolist
@@ -35,7 +35,15 @@ services:
       - db
   nginx:
     build: ./nginx
-    ports:
+    ports:  # if ports - that means that it is wide open to connect outside
       - 8000:80
+#    expose:
+#      - 8000
     depends_on:
       - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - nginx
