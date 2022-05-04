@@ -21,7 +21,8 @@ import ProjectForm from './components/ProjectForm';
 import TodoForm from './components/TodoForm';
 
 
-const DOMAIN = 'http://127.0.0.1:8000/api/'
+// const DOMAIN = 'http://127.0.0.1:8000/api/'  // Test environment
+const DOMAIN = 'http://51.250.66.212:8000/api/'  // Production environment
 const get_url = (url) => `${DOMAIN}${url}`
 
 
@@ -107,7 +108,7 @@ class App extends React.Component {
   }
 
   get_token(username, password) {
-    axios.post('http://127.0.0.1:8000/api-token-auth/', { username: username, password: password })
+    axios.post(get_url('api-token-auth/'), { username: username, password: password })
       .then(response => {
         console.log(response.data)
         this.set_token(response.data['token'], username)
